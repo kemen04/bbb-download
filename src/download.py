@@ -106,7 +106,7 @@ def rescale_presentation(new_height, new_width, dictionary):
     times = dictionary.keys()
     times.sort()
     for i, t in enumerate(times):
-        if i < 1:
+        if i < 0:
             continue
         ffmpeg.rescale_image(dictionary[t], new_height, new_width, dictionary[t])
 
@@ -154,7 +154,9 @@ def prepare():
     shutil.copytree("presentation", temp_dir + "presentation")
     dictionary, length = extract_timings()
     dims = get_different_presentations(dictionary)
-    check_presentation_dims(dictionary, dims)
+    if dims:
+        check_presentation_dims(dictionary, dims)
+
     return dictionary, length, dims
 
 
